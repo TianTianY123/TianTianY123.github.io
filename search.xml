@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>buuctf reverse wp</title>
+    <url>/2020/10/25/reverse3/</url>
+    <content><![CDATA[<p>Reverse engineering, also called back engineering, is the process by which a man-made object is deconstructed to reveal its designs, architecture, or to extract knowledge from the object; —— from <a href="https://en.wikipedia.org/wiki/Reverse_engineering">wikipedia</a></p>
+<p>本文上传一些buuoj上刷过的一些逆向题的write up.</p>
+<h1 id="reverse3"><a href="#reverse3" class="headerlink" title="reverse3"></a>reverse3</h1><p> exeinfope查壳</p>
+<p> 32位无壳</p>
+<p>[<img src="https://s1.ax1x.com/2020/10/25/Be9a6J.png" alt="Be9a6J.png"></p>
+<p>ida查看</p>
+<p>看到关键词rigth flag!，base64input</p>
+<p>[<img src="https://s1.ax1x.com/2020/10/25/Be9sk6.png" alt="Be9sk6.png"></p>
+<p>进入rigth flag!对应的函数查看，发现关键语句</p>
+<p>[<img src="https://s1.ax1x.com/2020/10/25/Be9gpD.png" alt="Be9gpD.png"></p>
+<p>就是用sub_4110BE函数对flag加密，再进行一个移位变换后与str2比较，查看str2为 e3nifIH9b_C@n@dH</p>
+<p>[<img src="https://s1.ax1x.com/2020/10/25/BeCM9O.png" alt="BeCM9O.png">]</p>
+<p>进入sub_4110BE函数，发现其大量用以下代码</p>
+<p>[<img src="https://s1.ax1x.com/2020/10/25/BeClge.png" alt="BeClge.png"></p>
+<p>并结合base64input字符，猜测为base64编码，即对str2字符串移位变换再base64解码后得到flag.</p>
+<p>解密脚本为：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line">str2=<span class="string">&#x27;e3nifIH9b_C@n@dH&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(str2)):</span><br><span class="line">    flag+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(str2[i])-i)</span><br><span class="line">flag=base64.b64decode(flag)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>buuctf wp</category>
+      </categories>
+      <tags>
+        <tag>reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ty&#39;s blog</title>
+    <url>/2020/10/25/hello-world/</url>
+    <content><![CDATA[<p>Hello World!!!</p>
+]]></content>
+  </entry>
+</search>
