@@ -84,9 +84,14 @@
 
 
 
-
-
-
+<h1 id="BJDCTF-2nd-8086"><a href="#BJDCTF-2nd-8086" class="headerlink" title="[BJDCTF 2nd]8086"></a>[BJDCTF 2nd]8086</h1><p>ida查看，只有start和sub_10030两个函数</p>
+<p>start函数调用了sub_10030函数，sub_10030函数是个死循环，不断调用自己，直接看汇编</p>
+<p>[<img src="https://s1.ax1x.com/2020/10/25/BmZMrT.png" alt="BmZMrT.png"></p>
+<p>应该是对上面的字符串进行运算得到flag,将下面的代码块强制转汇编得</p>
+<p>[<img src="https://s1.ax1x.com/2020/10/25/BmmsgI.png" alt="BmmsgI.png">]</p>
+<p>应该是将0x22个字符与0x1F异或得到flag</p>
+<p>解题脚本为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span>=<span class="string">r&#x27;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~/b&#x27;</span></span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">str</span>:</span><br><span class="line">    flag+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(i)^<span class="number">0x1F</span>)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
 
 
 
@@ -133,7 +138,7 @@
     </div>
     
         <div class='side'>
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#reverse3"><span class="toc-number">1.</span> <span class="toc-text">reverse3</span></a></li></ol>	
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#reverse3"><span class="toc-number">1.</span> <span class="toc-text">reverse3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BJDCTF-2nd-8086"><span class="toc-number">2.</span> <span class="toc-text">[BJDCTF 2nd]8086</span></a></li></ol>	
         </div>
     
 </div>
